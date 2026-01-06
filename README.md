@@ -1,117 +1,86 @@
-# Todo In-Memory Console Application
+# Panaversity Hackathon II: Phase 2 - Full-Stack Todo Web App
 
-A simple, lightweight todo list application for tracking personal tasks. Data is stored in memory only and will be lost when the application closes.
+A full-stack Todo application built with Next.js, FastAPI, SQLModel, and Neon PostgreSQL.
 
 ## Features
+- Full CRUD operations (Create, Read, Update, Delete)
+- Permanent storage with Neon PostgreSQL
+- Responsive web UI with Tailwind CSS
+- RESTful API architecture
 
-- Add todos with title and optional description
-- View all todos in a formatted list
-- Update existing todos (title and description)
-- Delete todos
-- Console-based interaction
-- No database or file storage required
+## Tech Stack
+- **Frontend:** Next.js (App Router), TypeScript, Tailwind CSS
+- **Backend:** FastAPI, SQLModel
+- **Database:** Neon PostgreSQL
 
-## Requirements
+## Prerequisites
+- Python 3.13+
+- Node.js 18+ and npm
+- Neon PostgreSQL Account
 
-- Python 3.13 or higher
-- UV package manager
+## Setup Instructions
 
-## Installation
-
-1. Ensure you have Python 3.13+ installed:
+### 1. Backend Setup
+1. Navigate to the `backend` directory:
    ```bash
-   python --version
+   cd backend
+   ```
+2. Create and activate a virtual environment:
+   ```bash
+   python -m venv venv
+   # On Windows:
+   .\venv\Scripts\activate
+   # On macOS/Linux:
+   source venv/bin/activate
+   ```
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Create a `.env` file and add your Neon connection string:
+   ```env
+   DATABASE_URL=your_neon_postgresql_url
+   ```
+5. Run the FastAPI server:
+   ```bash
+   uvicorn main:app --reload
    ```
 
-2. Ensure you have UV installed:
+### 2. Frontend Setup
+1. Navigate to the `frontend` directory:
    ```bash
-   uv --version
+   cd frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env.local` file:
+   ```env
+   NEXT_PUBLIC_API_URL=http://localhost:8000
+   ```
+4. Run the development server:
+   ```bash
+   npm run dev
    ```
 
-3. Install the application:
-   ```bash
-   uv pip install -e .
-   ```
-
-## Running the Application
-
-After installation, run the application using UV:
-
-```bash
-uv run python -m src.todo
-```
-
-Or use the entry point directly:
-
-```bash
-uv run python src/todo/main.py
-```
-
-## Usage
-
-The application presents a simple console menu:
-
-```
-============================================
-           TODO APPLICATION
-============================================
-
-1. Add Todo
-2. View All Todos
-3. Update Todo
-4. Delete Todo
-5. Exit
-
-Enter your choice (1-5):
-```
-
-### Adding a Todo
-
-1. Select option `1` (Add Todo)
-2. Enter the todo title (required)
-3. Enter a description (optional, press Enter to skip)
-
-### Viewing Todos
-
-1. Select option `2` (View All Todos)
-2. All todos will be displayed with ID, title, description, and creation timestamp
-
-### Updating a Todo
-
-1. Select option `3` (Update Todo)
-2. Enter the ID of the todo to update
-3. Enter a new title (leave blank to keep current)
-4. Enter a new description (leave blank to keep current)
-
-### Deleting a Todo
-
-1. Select option `4` (Delete Todo)
-2. Enter the ID of the todo to delete
-3. Confirm with `y` to delete or `n` to cancel
-
-### Exiting
-
-Select option `5` (Exit) to close the application. Note: All data will be lost as it is stored in memory only.
+## API Endpoints
+- `GET /todos`: List all tasks
+- `POST /todos`: Create a new task
+- `PATCH /todos/{id}`: Update task title or status
+- `DELETE /todos/{id}`: Delete a task
 
 ## Project Structure
-
+```text
+/hackathon2
+├── backend/
+│   ├── main.py         # FastAPI routes
+│   ├── models.py       # SQLModel definitions
+│   ├── database.py     # Connection logic
+│   └── .env            # Database secrets
+├── frontend/
+│   ├── src/app/        # Next.js pages
+│   ├── src/components/ # UI Components
+│   └── .env.local      # API configuration
+└── README.md
 ```
-hackathon2/
-├── pyproject.toml
-├── README.md
-└── src/
-    └── todo/
-        ├── __init__.py
-        ├── main.py           # Entry point
-        ├── manager.py        # Business logic and UI
-        ├── models/
-        │   ├── __init__.py
-        │   └── todo.py      # Todo dataclass
-        └── data/
-            ├── __init__.py
-            └── todo_store.py # In-memory storage
-```
-
-## License
-
-This project is part of Panaversity Hackathon II.
